@@ -97,6 +97,29 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    slug: 'agriguard',
+    title: 'AgriGuard',
+    year: '2026',
+    kind: 'Smart-agriculture platform',
+    tagline: 'Satellite, weather and soil data, turned into water-or-wait decisions.',
+    description:
+      'A full-stack smart agriculture platform that fuses satellite, weather, soil and crop-health data into per-field irrigation and fertilizer recommendations, with role-based workflows for farmers, agronomists and FPO administrators.',
+    highlights: [
+      'FAO-56 irrigation decision engine: crop water balance, rainfall forecasts, solar windows and soil moisture decide when to water, wait or skip, with Server-Sent Events for live updates and scheduled background analysis.',
+      'Sentinel-2 NDVI crop monitoring and Open-Meteo weather/soil data; a server-side MobileNetV2/ONNX classifier covers 38 crop/disease classes, with Gemini explanations, Soil Health Card extraction and AI second opinions.',
+      'IoT-ready ESP32 field-node design (soil, NPK, flow, energy, tank level, solar) with device auth, pump control and sensor health checks, plus a SHA-256 hash-chained sustainability ledger for water, energy, CO\u2082 and monetary impact.',
+    ],
+    tech: ['Next.js 16', 'React 19', 'TypeScript', 'Express 5', 'PostgreSQL', 'Prisma', 'ONNX', 'Sentinel-2', 'ESP32'],
+    links: [
+      { label: 'Live', url: 'https://agriguard-web.onrender.com/', kind: 'live' },
+      { label: 'Code', url: 'https://github.com/aditeejha/AgriGuard', kind: 'code' },
+    ],
+    cover: '/projects/agriguard.svg',
+    accent: 'amber',
+    featured: true,
+    badge: 'FEATURED',
+  },
+  {
     slug: 'spot2solve',
     title: 'Spot2Solve',
     year: '2026',
@@ -116,6 +139,29 @@ export const projects: Project[] = [
     ],
     cover: '/projects/spot2solve.webp',
     accent: 'cyan',
+    featured: true,
+    badge: 'FEATURED',
+  },
+  {
+    slug: 'safedrop',
+    title: 'SafeDrop',
+    year: '2026',
+    kind: 'E-waste platform on AWS',
+    tagline: 'Wipe it, hand it over, and trace every step.',
+    description:
+      'An AWS-powered e-waste management platform combining device-specific data-wiping guides, safety-aware device assessment, recycler discovery and collection-partner workflows on a fully serverless stack.',
+    highlights: [
+      'Serverless architecture on AWS Amplify, API Gateway, Lambda, DynamoDB, Cognito, S3, Amazon Location Service and Rekognition for hosting, APIs, auth, location-based discovery and photo-assisted features.',
+      'TrustChain traceability: single-use handover verification, controlled lifecycle transitions, idempotency controls and hash-linked event records for handover integrity and auditability.',
+      'Partner handover, weighing, dispatch and facility-receipt workflows, with an impact dashboard that separates recorded activity from estimated environmental benefits.',
+    ],
+    tech: ['AWS Amplify', 'Lambda', 'API Gateway', 'DynamoDB', 'Cognito', 'S3', 'Rekognition', 'Location Service'],
+    links: [
+      { label: 'Live', url: 'https://main.d2ykddnngohyy3.amplifyapp.com/', kind: 'live' },
+      { label: 'Code', url: 'https://github.com/aditeejha/safedrop-ewaste', kind: 'code' },
+    ],
+    cover: '/projects/safedrop.svg',
+    accent: 'violet',
     featured: true,
     badge: 'FEATURED',
   },

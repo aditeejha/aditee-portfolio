@@ -75,7 +75,7 @@ function Featured({ p }: { p: Project }) {
         <ul className="mt-4 space-y-2 text-sm text-paper/85">
           {p.highlights.map((h) => (
             <li key={h} className="flex gap-2">
-              <span className={`mt-1.5 h-1.5 w-1.5 shrink-0 ${p.accent === 'cyan' ? 'bg-cyan' : 'bg-pink'}`} aria-hidden />
+              <span className={`mt-1.5 h-1.5 w-1.5 shrink-0 ${a.text.replace('text-', 'bg-')}`} aria-hidden />
               {h}
             </li>
           ))}
@@ -147,7 +147,7 @@ export function Projects() {
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {rest.map((p, i) => (
             <Reveal key={p.slug} delay={0.08 * i}>
-              <Card p={p} index={i + 2} />
+              <Card p={p} index={i + featured.length + 1} />
             </Reveal>
           ))}
         </div>
