@@ -2,7 +2,7 @@
 
 Retro-future, anime-flavoured portfolio for [Aditee Jha](https://github.com/aditeejha): synthwave sun and grid, CRT scanlines, pixel-art player card, falling sakura, and a Konami-code easter egg.
 
-Built with **React 19 + TypeScript + Vite 7 + Tailwind CSS v4 + Framer Motion**. No backend. The contact form opens the visitor's mail app.
+Built with **React 19 + TypeScript + Vite 7 + Tailwind CSS v4 + Framer Motion**. No backend. The contact form opens Gmail (or the mail app on a phone) with the message pre-filled.
 
 ## Run
 

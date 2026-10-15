@@ -1,5 +1,5 @@
 import { useEffect, useState, type FormEvent } from 'react'
-import { ArrowUpRight, Clock, Mail, MapPin, Send } from 'lucide-react'
+import { ArrowUpRight, Check, Clock, Copy, Mail, MapPin, Send } from 'lucide-react'
 import { profile } from '../data/profile'
 import { SocialIcon } from '../components/SocialIcon'
 import { Reveal } from '../components/Reveal'
@@ -18,6 +18,15 @@ function useLocalTime(tz: string) {
   return time
 }
 
+// Phones hand mailto links to the mail app; desktop browsers often have none set up, so open Gmail there.
+const onPhone = () => /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)
+
+function composeLink(subject = '', body = '') {
+  if (onPhone()) return `mailto:${profile.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+  const params = new URLSearchParams({ view: 'cm', fs: '1', to: profile.email, su: subject, body })
+  return `https://mail.google.com/mail/?${params}`
+}
+
 const field =
   'w-full border border-line bg-ink/80 px-4 py-3 font-mono text-xl leading-none text-paper placeholder:text-muted/60 focus:border-cyan focus:outline-none'
 
@@ -26,12 +35,28 @@ export function Contact() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
+  const [opened, setOpened] = useState(false)
+  const [copied, setCopied] = useState(false)
+
+  const subject = `[Portfolio] ${name || 'Hello'}`
+  const body = `${message}\n\n— ${name}${email ? ` (${email})` : ''}`
 
   const submit = (e: FormEvent) => {
     e.preventDefault()
-    const subject = encodeURIComponent(`[Portfolio] ${name || 'Hello'}`)
-    const body = encodeURIComponent(`${message}\n\n— ${name}${email ? ` (${email})` : ''}`)
-    window.location.href = `mailto:${profile.email}?subject=${subject}&body=${body}`
+    const link = composeLink(subject, body)
+    if (link.startsWith('mailto:')) window.location.href = link
+    else window.open(link, '_blank', 'noopener')
+    setOpened(true)
+  }
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(profile.email)
+      setCopied(true)
+      window.setTimeout(() => setCopied(false), 2000)
+    } catch {
+      setCopied(false)
+    }
   }
 
   return (
@@ -78,27 +103,44 @@ export function Contact() {
               type="submit"
               className="flex w-full items-center justify-center gap-2 bg-pink py-3.5 font-pixel text-[10px] text-void transition hover:bg-cyan hover:shadow-neon-cyan"
             >
-              <Send size={14} /> SEND VIA EMAIL
+              <Send size={14} /> SEND VIA GMAIL
             </button>
-            <p className="font-mono text-base text-muted">Opens your mail app with the message pre-filled. No servers, no tracking.</p>
+            {opened ? (
+              <p className="font-mono text-base text-mint" role="status">
+                Your message is ready in a new tab: press Send there. No Gmail?{' '}
+                <a className="text-cyan underline" href={`mailto:${profile.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`}>
+                  Use your mail app
+                </a>{' '}
+                or write to {profile.email}.
+              </p>
+            ) : (
+              <p className="font-mono text-base text-muted">Opens Gmail (or your mail app on a phone) with the message pre-filled. No servers, no tracking.</p>
+            )}
           </form>
         </Reveal>
 
         <div className="space-y-6">
           <Reveal delay={0.1}>
-            <a
-              href={`mailto:${profile.email}`}
-              className="hud-card flex items-center gap-4 p-6 transition hover:border-pink/70 hover:shadow-neon-pink"
-            >
-              <span className="grid h-12 w-12 shrink-0 place-items-center bg-pink/15 text-pink">
-                <Mail size={22} />
-              </span>
-              <div className="min-w-0">
-                <p className="font-pixel text-[8px] text-muted">EMAIL</p>
-                <p className="truncate font-mono text-2xl leading-tight text-paper">{profile.email}</p>
-              </div>
-              <ArrowUpRight size={18} className="ml-auto shrink-0 text-muted" />
-            </a>
+            <div className="hud-card flex items-center gap-4 p-6 transition hover:border-pink/70 hover:shadow-neon-pink">
+              <a href={composeLink()} target="_blank" rel="noreferrer" className="flex min-w-0 flex-1 items-center gap-4">
+                <span className="grid h-12 w-12 shrink-0 place-items-center bg-pink/15 text-pink">
+                  <Mail size={22} />
+                </span>
+                <div className="min-w-0">
+                  <p className="font-pixel text-[8px] text-muted">EMAIL</p>
+                  <p className="truncate font-mono text-2xl leading-tight text-paper">{profile.email}</p>
+                </div>
+              </a>
+              <button
+                type="button"
+                onClick={copyEmail}
+                aria-label="Copy email address"
+                title={copied ? 'Copied' : 'Copy email address'}
+                className="shrink-0 p-2 text-muted transition hover:text-cyan"
+              >
+                {copied ? <Check size={18} className="text-mint" /> : <Copy size={18} />}
+              </button>
+            </div>
           </Reveal>
 
           <Reveal delay={0.15}>
