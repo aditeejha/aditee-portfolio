@@ -11,7 +11,7 @@ export const profile = {
   resume: '/Aditee_Jha_Resume.pdf',
   availability: 'Open to internships · Summer 2027',
   bio: [
-    'Second-year Computer Science undergrad at BIT Mesra, writing code that ships. My comfort zone is the backend: REST APIs, auth and RBAC, Postgres schemas, queues, and the kind of concurrency bugs that only show up at 2 AM.',
+    'Third-year Computer Science undergrad at BIT Mesra, writing code that ships. My comfort zone is the backend: REST APIs, auth and RBAC, Postgres schemas, queues, and the kind of concurrency bugs that only show up at 2 AM.',
     'Lately I have been building full products end to end: a civic-issue platform with AI triage and SLA escalation, an offline-first car-rental marketplace, and a finance analytics API. I like systems that stay honest under pressure: transactional state machines, append-only audit logs, idempotent replays.',
     'Off the keyboard I debate, give talks, and publish essays on Medium. Same muscle, different medium: take something tangled, make it clear.',
   ],

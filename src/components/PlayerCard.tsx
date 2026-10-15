@@ -54,7 +54,7 @@ export function PlayerCard() {
             <p className="font-display text-xl font-black leading-tight text-paper">{profile.name.toUpperCase()}</p>
             <p className="mt-1 truncate font-mono text-lg text-muted">{profile.katakana}</p>
             <p className="mt-2 font-mono text-xl leading-tight text-cyan">
-              LVL 2 <span className="text-muted">·</span> B.Tech CSE
+              LVL 3 <span className="text-muted">·</span> B.Tech CSE
             </p>
             <p className="font-mono text-lg leading-tight text-muted">
               CLASS <span className="text-pink">Full-Stack</span>
